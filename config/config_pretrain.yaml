@@ -1,0 +1,35 @@
+
+batch_size: 40
+seed: 8
+epochs: 100
+
+userconfig:
+  pretrain:
+    dataset_dir: ./data/pretrain/
+
+mode: pretrain
+split_type: scaffold            # random, scaffold, random_scaffold
+save_ckpt: 50
+save_model: best_valid
+pretrain_model_path: None
+checkpoint: False
+DP: False
+
+optim:
+  type: adam
+  init_lr: 0.00005               # initial learning rate for the prediction head
+  init_base_lr: 0.0001           # initial learning rate for the base GNN encoder
+  weight_decay: 0.0001             # weight decay of Adam
+
+lr_scheduler:
+  type: None
+  warm_up_epoch: 10
+  start_lr: 0.00001
+
+model:
+  atom_embed_dim: 512
+  num_kernel: 128
+  layer_num: 6
+  num_heads: 16
+  hidden_size: 256
+  num_tasks: None

@@ -1,0 +1,67 @@
+task_name: CHEMBL244_Ki
+# 'CHEMBL244_Ki', 1
+# 'CHEMBL287_Ki', 2
+# 'CHEMBL262_Ki', 3
+# 'CHEMBL219_Ki', 4
+# 'CHEMBL236_Ki', 5
+# 'CHEMBL1862_Ki', 6
+# 'CHEMBL239_EC50', 7
+# 'CHEMBL218_EC50', 8
+# 'CHEMBL2047_EC50', 9
+# 'CHEMBL228_Ki', 10
+# 'CHEMBL231_Ki', 11
+# 'CHEMBL237_EC50', 12
+# 'CHEMBL2971_Ki', 13
+# 'CHEMBL4203_Ki', 14
+# 'CHEMBL4616_EC50', 15
+# 'CHEMBL233_Ki', 16
+# 'CHEMBL1871_Ki', 17
+# 'CHEMBL214_Ki', 18
+# 'CHEMBL237_Ki', 19
+# 'CHEMBL4792_Ki', 20
+# 'CHEMBL235_EC50', 21
+# 'CHEMBL234_Ki', 22
+# 'CHEMBL2147_Ki', 23
+# 'CHEMBL238_Ki', 24
+# 'CHEMBL4005_Ki', 25
+# 'CHEMBL204_Ki', 26
+# 'CHEMBL3979_EC50', 27
+# 'CHEMBL2835_Ki', 28
+# 'CHEMBL2034_Ki', 29
+# 'CHEMBL264_Ki' 30
+
+batch_size: 64
+seed: 8
+epochs: 100
+patience: 10
+loss_type: mse
+
+userconfig:
+  cliff:
+    dataset_dir: ./data/cliff/cliff_pkl/
+
+mode: cliff
+save_ckpt: 50
+save_model: best_valid
+pretrain_model_path: None
+checkpoint: True
+DP: False
+
+optim:
+  type: adam
+  init_lr: 0.0005                # initial learning rate for the prediction head
+  init_base_lr: 0.0001           # initial learning rate for the base GNN encoder
+  weight_decay: 0.0001             # weight decay of Adam
+
+lr_scheduler:
+  type: None
+  warm_up_epoch: 10
+  start_lr: 0.00001
+
+model:
+  atom_embed_dim: 512
+  num_kernel: 128
+  layer_num: 6
+  num_heads: 16
+  hidden_size: 256
+  num_tasks: None
