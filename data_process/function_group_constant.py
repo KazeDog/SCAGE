@@ -78,15 +78,16 @@ $([OX2][#6])])[$([OX2H]),$([OX1-]),$([OX2][#6]),$([OX2]P)])]",
 
 
 @cache
-def _get_new_fn_groups(filepath: str = None):
-    """Used for debug only"""
-    filepath = Path(filepath) if filepath else os.path.dirname(os.path.realpath(__file__)) + "/new_fg_groups.txt"
-    with open(filepath, 'r') as f:
-        new_list = f.readlines()
-    new_list = {smiles.strip() for smiles in new_list if smiles.strip()}
-    new_list_dict = {f"{index + 144}": smiles for index, smiles in
-                     enumerate(new_list) if smiles.strip()}
-    return new_list_dict
+def _get_new_fn_groups(filepath: str = None) -> Dict[str, str]:
+    if filepath is None:
+        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data/new_fg_groups.txt")
+    filepath = Path(filepath)
+    if not filepath.exists():
+        return {}
+    with open(filepath, "r", encoding="utf-8") as f:
+        lines = [smiles.strip() for smiles in f.readlines()]
+    lines = [s for s in lines if s]
+    return {str(idx + 144): smiles for idx, smiles in enumerate(lines)}
 
 FUNCTION_GROUP_LIST_FROM_DAYLIGHT = sorted(list(set(__FUNCTION_GROUP_LIST_FROM_GITHUB + [
     # Connectivity
@@ -129,8 +130,7 @@ FUNCTION_GROUP_LIST_FROM_DAYLIGHT = sorted(list(set(__FUNCTION_GROUP_LIST_FROM_G
     # Amino Acid
     "[NX3,NX4+][CX4H]([*])[CX3](=[OX1])[O,N]",  # Amino Acid
     "c",
-    "c1ccccc1"  # 苯环
-    # 谁在ring里面, 区分一下分子
+    "c1ccccc1"  # benzene ring
 
     # Add all the elements
 ]))) + list(_get_new_fn_groups().values()) + ['N', 'O', 'S']
