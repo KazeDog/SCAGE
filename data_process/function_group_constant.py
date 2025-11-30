@@ -80,7 +80,7 @@ $([OX2][#6])])[$([OX2H]),$([OX1-]),$([OX2][#6]),$([OX2]P)])]",
 @cache
 def _get_new_fn_groups(filepath: str = None) -> Dict[str, str]:
     if filepath is None:
-        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data/new_fg_groups.txt")
+        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./new_fg_groups.txt")
     filepath = Path(filepath)
     if not filepath.exists():
         return {}
